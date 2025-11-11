@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Data {
 
-	private static final String DB_URL = "jdbc:AutomatedTellerMachine/bank.db";
+	private static final String DB_URL = "jdbc:sqlite:bank.db";
 
 	// Load SQLite driver once when the class is loaded
 	static {
