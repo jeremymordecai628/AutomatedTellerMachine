@@ -32,7 +32,7 @@ public class Bank {
 		 JOptionPane.showMessageDialog(null,  "Login successful!");
 	 }else{
 		  JOptionPane.showMessageDialog(null, "Authetication failed kindly try again.");
-		  System.exit(0);
+		  entry(); // 🔁 Restart the login process
 	 }
     }
 
@@ -46,10 +46,12 @@ public class Bank {
         JButton button1 = new JButton("Deposit");
         JButton button2 = new JButton("Withdrawal");
         JButton button3 = new JButton("Check Balance");
+	JButton button4 = new JButton("Exit");
 
         frame.add(button1);
         frame.add(button2);
         frame.add(button3);
+	frame.add(button4);
 
 	button1.addActionListener(e -> {
 		String Deposit= JOptionPane.showInputDialog(
@@ -79,13 +81,29 @@ public class Bank {
 				);
 		double amount = Double.parseDouble(Amount);
 		double newBalance = withdraw.withdraw(accountNo, amount);
-		JOptionPane.showMessageDialog(frame, "Withdrawal for Account " + accountNo + ":" +Amount + ":" +newBalance );
+		JOptionPane.showMessageDialog(frame, "Withdrawal for Account " + accountNo + "Withdrawal amount " +Amount + "your new balance" +newBalance );
         });
 
         button3.addActionListener(e -> {
 		double balance = data.getBalance(accountNo);
-		JOptionPane.showMessageDialog(frame, "Check Balance for Account " + accountNo + ":" +balance);
+		JOptionPane.showMessageDialog(frame, "Check Balance for Account " + accountNo + "account balance" +balance);
         });
+	//  Exit button
+	button4.addActionListener(e -> {
+		int choice = JOptionPane.showConfirmDialog(
+				frame,
+				"Are you sure you want to exit ?",
+				"Happy Customer Week",
+				JOptionPane.YES_NO_OPTION
+				);
+		if (choice == JOptionPane.YES_OPTION) {
+			frame.dispose(); // close the current window
+			Bank restartApp = new Bank(); // create a fresh instance
+			restartApp.entry();           // restart login
+			restartApp.showGUI();         // show new GUI
+		}
+	});
+
 
         frame.setVisible(true);
     }
